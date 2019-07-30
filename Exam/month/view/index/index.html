@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>添加页面</title>
+	<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>班车车次</td>
+			<td>
+				<select name="" id="tarin">
+					<option value="">请选择车次</option>
+					{volist name='data' id='vo'}
+						<option value="{$vo.tarin}">{$vo.tarin}</option>
+					{/volist}
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>学生姓名</td>
+			<td>
+				<input type="text" id="name">
+			</td>
+		</tr>
+		<tr>
+			<td>身份证号</td>
+			<td>
+				<input type="text" id="num">
+			</td>
+		</tr>
+		<tr>
+			<td>学生性别</td>
+			<td>
+				<input type="text" id="sex">
+			</td>
+		</tr>
+		<tr>
+			<td>学生单位</td>
+			<td>
+				<input type="text" id="position">
+			</td>
+		</tr>
+		<tr>
+			<td>乘客类型</td>
+			<td>
+				<input type="text" id="clas">
+			</td>
+		</tr>
+		<tr>
+			<td>代理人姓名</td>
+			<td>
+				<input type="text" id="dname">
+			</td>
+		</tr>
+		<tr>
+			<td>代理人单位</td>
+			<td>
+				<input type="text" id="dposition">
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<input type="button" class="but" value="添加">
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
+<script>
+	$(".but").on("click",function(){
+		var tarin=$("#tarin").val()
+		var name=$("#name").val()
+		var num=$("#num").val()
+		var sex=$("#sex").val()
+		var position=$("#position").val()
+		var clas=$("#clas").val()
+		var dname=$("#dname").val()
+		var dposition=$("#dposition").val()
+		// alert(name)
+		if(num==''){
+			alert("身份证号不能为空")
+			exit
+		}
+		$.ajax({
+			url:"{:url('index/add')}",
+			data:{tarin:tarin,name:name,num:num,sex:sex,position:position,clas:clas,dname:dname,dposition:dposition},
+			type:'post',
+			dataType:'json',
+			success:function(e){
+				if(e.msg==1){
+					alert("添加成功")
+					location.href="{:url('index/show')}"
+				}
+				if(e.msg==2){
+					alert("添加失败")
+				}
+			}
+		})
+	})
+</script>
